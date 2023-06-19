@@ -19,8 +19,6 @@ const options = {
     ]
 };
 
-app.use(express.static('public'))
-
 app.get('/.well-known/:file', (req, res) => {
     const file = sanitizeFilename(req.params.file)
 
@@ -34,3 +32,5 @@ app.get('/.well-known/:file', (req, res) => {
 https.createServer(options, app).listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
+
+app.use(express.static('react-public-build'))
