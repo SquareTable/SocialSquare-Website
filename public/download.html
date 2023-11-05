@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Download SocialSquare</title>
+        <style>
+            img {
+                width: 500px;
+                height: auto;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                body {
+                    background-color: black;
+                    color: white;
+                }
+            }
+
+            body {
+                margin: 0px;
+                padding: 0px;
+                display: flex;
+                min-height: 100vh;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            #badges {
+                display: flex;
+                flex-grow: 1;
+                justify-content: space-around;
+                align-items: center;
+                flex-direction: row;
+            }
+
+            h4 {
+                margin: 0px;
+                padding: 0px;
+            }
+
+            #badges > div {
+                display: flex;
+                justify-content: center;
+            }
+
+            @media only screen and (max-width: 1200px) {
+                #badges {
+                    flex-direction: column;
+                }
+
+                img {
+                    width: min(500px, 100vw);
+                }
+            }
+
+            @media only screen and (min-width: 1201px) {
+                #badges > div {
+                    width: 50vw;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Download SocialSquare</h1>
+        <h2>On your favourite platforms</h2>
+        <div id="badges">
+            <div>
+                <a href="https://testflight.apple.com/join/pD5Z4RHX" target="_blank"><img src="/images/black-app-store-download.svg"></a>
+            </div>
+            <div>
+                <a href="#" onclick="alert('Android version is not available at the moment. Please check back later.')"><img src="/images/google-play-badge.png"></a>
+            </div>
+        </div>
+        <h4>Apple Store is a trademark of Apple Inc.</h4>
+        <h4>Google Play and the Google Play logo are trademarks of Google LLC.</h4>
+    </body>
+</html>

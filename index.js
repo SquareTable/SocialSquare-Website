@@ -33,4 +33,4 @@ https.createServer(options, app).listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
 
-app.use(express.static('react-public-build'))
+app.use(express.static('public'))
