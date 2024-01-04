@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const fs = require('fs')
 const https = require('https')
@@ -10,15 +11,6 @@ app.use(cors())
 
 const PORT = 3000; //In the docker-compose.yml, port 3000 gets forwarded to 443
 
-const options = {
-    key: fs.readFileSync('./ssl/private.key'),
-    cert: fs.readFileSync('./ssl/server.crt'),
-    ca: [
-        fs.readFileSync('./ssl/intermediate.crt'),
-        fs.readFileSync('./ssl/root.crt')
-    ]
-};
-
 app.get('/.well-known/:file', (req, res) => {
     const file = sanitizeFilename(req.params.file)
 
@@ -29,8 +21,23 @@ app.get('/.well-known/:file', (req, res) => {
     res.sendFile(filepath)
 })
 
-https.createServer(options, app).listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
+if (process.env.NO_HTTPS === 'true') {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`)
+    })
+} else {
+    const options = {
+        key: fs.readFileSync('./ssl/private.key'),
+        cert: fs.readFileSync('./ssl/server.crt'),
+        ca: [
+            fs.readFileSync('./ssl/intermediate.crt'),
+            fs.readFileSync('./ssl/root.crt')
+        ]
+    };
+    
+    https.createServer(options, app).listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`)
+    })
+}
 
 app.use(express.static('public'))
